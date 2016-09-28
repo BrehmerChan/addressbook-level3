@@ -5,6 +5,7 @@ import seedu.addressbook.data.person.UniquePersonList.*;
 import seedu.addressbook.data.tag.Tag;
 import seedu.addressbook.data.tag.UniqueTagList;
 import seedu.addressbook.data.tag.UniqueTagList.*;
+import seedu.addressbook.data.exception.IllegalValueException;
 
 import java.util.*;
 
@@ -136,6 +137,20 @@ public class AddressBook {
      */
     public UniquePersonList getAllPersons() {
         return new UniquePersonList(allPersons);
+    }
+    
+    public UniquePersonList getAllTagPersons(String tag) throws IllegalValueException {
+        UniquePersonList list = new UniquePersonList();
+        Tag newTag = new Tag(tag);
+        try {
+            for (Person p: allPersons){
+                if (p.getTags().contains(newTag)){
+                    list.add(p);
+                }
+            }
+        }   catch (IllegalValueException e){};
+        
+        return list;
     }
 
     /**
